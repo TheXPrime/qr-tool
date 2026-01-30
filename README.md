@@ -1,4 +1,4 @@
-**# QR Tool**
+**QR Tool**
 
 
 
@@ -6,7 +6,7 @@
 
 
 
-**## Features**
+**Features**
 
 **- Generate QR (PNG)**
 
@@ -16,9 +16,7 @@
 
 
 
-**## Setup**
-
-**```bash**
+**Setup**
 
 **python -m venv venv**
 
@@ -28,13 +26,13 @@
 
 
 
-**## Run**
+**Run**
 
 **```python main.py```**
 
 
 
-**## Notes**
+**Notes**
 
 * **Image paths with quotes are supported**
 * **If camera index 0 doesn't work, try 1 or 2**
