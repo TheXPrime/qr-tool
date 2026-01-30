@@ -1,0 +1,25 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+.venv/
+
+# OS / Editor files
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
+
+# App outputs
+data/output/
+*.png
+data/output/*
+!data/output/.gitkeep
+
+# Build artifacts (exe)
+build/
+dist/
+*.spec
