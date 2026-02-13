@@ -1,32 +1,17 @@
 import cv2 as cv
 
-
-def _resolve_camera_index(cam_index):
-    if cam_index is None:
-        raw = input("Camera Index (Default 0): ").strip()
-        if not raw:
-            return 0
-        if raw.isdigit():
-            return int(raw)
-
-        print("Invalid camera index, using 0")
-        return 0
-
-    if isinstance(cam_index, int):
-        return cam_index
-
-    if isinstance(cam_index, str) and cam_index.strip().isdigit():
-        return int(cam_index.strip())
-
-    print("Invalid camera index, using 0")
-    return 0
-
-
-def scan_camera_flow(cam_index=None):
+def scan_camera_flow():
     print("=== Scan QR from Camera ===")
     print("Press 'q' to quit")
 
-    cam_index = _resolve_camera_index(cam_index)
+    raw = input("Camera Index (Default 0): ").strip()
+    if not raw:
+        cam_index = 0
+    elif raw.isdigit():
+        cam_index = int(raw)
+    else:
+        print("Invalid camera index, using 0")
+        cam_index = 0
 
     cap = cv.VideoCapture(cam_index)
 

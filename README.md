@@ -56,6 +56,5 @@ dist/QR-Tool-GUI.exe
 **Notes**
 
 * **Image paths with quotes are supported**
-* **GUI camera scan has a camera index input (default: 0) and shows running/stopped status**
 * **If camera index 0 doesn't work, try 1 or 2**
 * **CLI version remains unchanged (`main.py`) and can be used in parallel with GUI.**
