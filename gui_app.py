@@ -108,20 +108,9 @@ class QRToolGUI(tk.Tk):
         tk.Label(
             frame,
             text="Opens OpenCV camera window. Press 'q' in that window to stop.",
-        ).grid(row=0, column=0, columnspan=3, sticky="w")
-
-        tk.Label(frame, text="Camera index:").grid(row=1, column=0, sticky="w", pady=(8, 0))
-        self.camera_index = tk.StringVar(value="0")
-        camera_entry = tk.Entry(frame, textvariable=self.camera_index, width=8)
-        camera_entry.grid(row=1, column=1, sticky="w", pady=(8, 0))
-        camera_entry.bind("<Button-3>", self._show_clipboard_menu)
-
-        self.camera_button = tk.Button(frame, text="Start Camera Scan", command=self.on_scan_camera)
-        self.camera_button.grid(row=1, column=2, padx=(8, 0), pady=(8, 0), sticky="w")
-
-        self.camera_status = tk.StringVar(value="")
-        tk.Label(frame, textvariable=self.camera_status, fg="#444").grid(
-            row=2, column=0, columnspan=3, sticky="w", pady=(8, 0)
+        ).pack(anchor="w")
+        tk.Button(frame, text="Start Camera Scan", command=self.on_scan_camera).pack(
+            anchor="w", pady=(8, 0)
         )
 
     def on_generate(self):
@@ -183,29 +172,7 @@ class QRToolGUI(tk.Tk):
             self.scan_result.insert(tk.END, data)
 
     def on_scan_camera(self):
-        raw_index = self.camera_index.get().strip()
-        if not raw_index:
-            cam_index = 0
-        elif raw_index.isdigit():
-            cam_index = int(raw_index)
-        else:
-            messagebox.showerror("Error", "Camera index must be a non-negative number.")
-            return
-
-        self.camera_button.config(state="disabled")
-        self.camera_status.set(f"Camera scan is running on index {cam_index}.")
-
-        def _run_camera_scan():
-            try:
-                scan_camera_flow(cam_index=cam_index)
-            finally:
-                self.after(0, self._on_camera_scan_finished)
-
-        threading.Thread(target=_run_camera_scan, daemon=True).start()
-
-    def _on_camera_scan_finished(self):
-        self.camera_button.config(state="normal")
-        self.camera_status.set("Camera scan stopped.")
+        threading.Thread(target=scan_camera_flow, daemon=True).start()
 
 
 if __name__ == "__main__":
