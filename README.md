@@ -19,7 +19,7 @@ A simple desktop QR utility built with **Python + Tkinter** for creating and sca
 
 - Python **3.10+**
 - A working webcam (for camera scanning)
-- On some systems, additional native libraries may be needed for `pyzbar`/OpenCV.
+- The app uses OpenCV's built-in QR detector, avoiding external `pyzbar` DLL dependencies in frozen builds.
 
 ## Quick Start (Run from Source)
 
