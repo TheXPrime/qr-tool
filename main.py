@@ -4,7 +4,6 @@ from qrcode.constants import ERROR_CORRECT_M, ERROR_CORRECT_Q
 import cv2 as cv
 import tkinter as tk
 from tkinter import messagebox, filedialog
-from pyzbar.pyzbar import decode
 
 
 # ===============================
@@ -166,6 +165,7 @@ camera_result_text.grid(row=2, column=0, padx=5, pady=4)
 
 def scan_camera():
     cap = cv.VideoCapture(0)
+    detector = cv.QRCodeDetector()
 
     if not cap.isOpened():
         messagebox.showerror("Error", "Camera not accessible")
@@ -178,12 +178,13 @@ def scan_camera():
         if not ret:
             break
 
-        codes = decode(frame)
+        data, points, _ = detector.detectAndDecode(frame)
+        if data:
+            detected_data = data
 
-        for code in codes:
-            detected_data = code.data.decode("utf-8")
-            x, y, w, h = code.rect
-            cv.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+        if points is not None:
+            polygon = points.astype(int).reshape(-1, 2)
+            cv.polylines(frame, [polygon], True, (0, 255, 0), 2)
 
         cv.imshow("QR Scanner", frame)
 
